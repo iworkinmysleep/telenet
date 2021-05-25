@@ -1,6 +1,6 @@
 import React from "react";
 import { LinkContainer } from "react-router-bootstrap";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 
 const Header = () => {
 	return (
@@ -10,11 +10,6 @@ const Header = () => {
 					<LinkContainer to="/">
 						<Navbar.Brand>Telenet Systems</Navbar.Brand>
 					</LinkContainer>
-					<Nav className="ml-auto">
-						<LinkContainer to="/">
-							<Nav.Link>Home</Nav.Link>
-						</LinkContainer>
-					</Nav>
 				</Container>
 			</Navbar>
 		</header>

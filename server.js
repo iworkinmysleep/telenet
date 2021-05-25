@@ -1,12 +1,12 @@
 import path from "path";
 import express from "express";
 import dotenv from "dotenv";
+import cors from 'cors';
 import colors from "colors";
 import morgan from "morgan";
-import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
+import { notFound, errorHandler } from "./middleware/errorWare.js";
 import connectDB from "./config/db.js";
 
-import itemRoutes from "./routes/itemRoutes.js";
 import roomRoutes from "./routes/roomRoutes.js";
 
 
@@ -16,6 +16,8 @@ connectDB();
 
 const app = express();
 
+app.use(cors())
+
 if (process.env.NODE_ENV === "development") {
 	app.use(morgan("dev"));
 }
@@ -23,12 +25,10 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 
 app.get("/", (req, res) => {
-	res.send("Api up");
+	res.send("Api is running");
 });
 
-app.use("/api/items", itemRoutes);
-app.use("/api/rooms", roomRoutes);
-
+app.use("/api/roomitems", roomRoutes);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
@@ -36,7 +36,7 @@ app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.use(notFound);
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 
 app.listen(
 	PORT,

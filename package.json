@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"description": "Server for Telenet systems room data",
 	"main": "server.js",
+	"type": "module",
 	"scripts": {
 		"start": "node server",
 		"server": "nodemon server",
@@ -13,6 +14,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"colors": "^1.4.0",
+		"cors": "^2.8.5",
 		"dotenv": "^9.0.2",
 		"express": "^4.17.1",
 		"express-async-handler": "^1.1.4",

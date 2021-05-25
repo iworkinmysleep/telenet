@@ -1,65 +1,71 @@
-import asyncHandler from "express-async-handler";
 import Room from "../models/roomModel.js";
+import asyncHandler from "express-async-handler";
 
-const postRoom = asyncHandler(async (req, res) => {
-	const { roomNumber, teacherName } = req.body;
-	const room = await Room.create({
-		roomNumber,
-		teacherName,
-	});
+// @desc    Get all rooms
+// @route   GET /api/roomitems
+// @access  Public
+const getRoomItems = asyncHandler(async (req, res) => {
+	const roomItems = await Room.find({});
+	res.json(roomItems);
+});
 
-	if (room) {
-		res.status(201).json({
-			_id: room._id,
-			roomNumber: room.roomNumber,
-			teacherName: room.teacherName,
+// @desc    Add room item
+// @route   POST /api/roomitems
+// @access  Public
+const addRoomItem = async (req, res, next) => {
+	try {
+		const { roomNumber, teacherName, selectedItem, serial, qty, isDefect } =
+			req.body;
+
+		const roomItem = await Room.create(req.body);
+
+		return res.status(201).json({
+			success: true,
+			data: roomItem,
 		});
-	} else {
-		res.status(400);
-		throw new Error("Invalid room data");
+	} catch (err) {
+		if (err.name === "ValidationError") {
+			const messages = Object.values(err.errors).map((val) => val.message);
+
+			return res.status(400).json({
+				success: false,
+				error: messages,
+			});
+		} else {
+			return res.status(500).json({
+				success: false,
+				error: "Server Error",
+			});
+		}
 	}
-});
+};
 
-const getRooms = asyncHandler(async (req, res) => {
-	const rooms = await Room.find({});
-	res.json(rooms);
-});
+// @desc    Delete room item
+// @route   DELETE /api/roomitems/:id
+// @access  Public
+const deleteRoomItem = async (req, res, next) => {
+	try {
+		const roomItem = await Room.findById(req.params.id);
 
-const deleteRoom = asyncHandler(async (req, res) => {
-	const room = await Room.findById(req.params.id);
+		if (!roomItem) {
+			return res.status(404).json({
+				success: false,
+				error: "No room item found",
+			});
+		}
 
-	if (room) {
-		await room.remove();
-		res.json({ message: "Room removed" });
-	} else {
-		res.status(404);
-		throw new Error("Room not found");
+		await roomItem.remove();
+
+		return res.status(200).json({
+			success: true,
+			data: {},
+		});
+	} catch (err) {
+		return res.status(500).json({
+			success: false,
+			error: "Server Error",
+		});
 	}
-});
+};
 
-const getRoomById = asyncHandler(async (req, res) => {
-	const room = await Room.findById(req.params.id);
-	if (room) {
-		res.json(room);
-	} else {
-		res.status(404);
-		throw new Error("Room not found");
-	}
-});
-
-const updateRoom = asyncHandler(async (req, res) => {
-	const room = await Room.findById(req.params.id);
-
-	if (room) {
-		(room.roomNumber = roomNumber), (room.teacherName = teacherName);
-
-		const updatedRoom = await room.save();
-
-		res.json(updatedRoom);
-	} else {
-		res.status(404);
-		throw new Error("Room not found");
-	}
-});
-
-export { postRoom, getRooms, getRoomById, deleteRoom, updateRoom };
+export { getRoomItems, deleteRoomItem, addRoomItem };
