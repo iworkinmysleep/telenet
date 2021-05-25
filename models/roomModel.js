@@ -14,6 +14,13 @@ const roomSchema = mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	hasProjector: {
+		type: Boolean,
+		required: true,
+	},
+	projectorType: {
+		type: String,
+	},
 	hasAP: {
 		type: Boolean,
 		required: true,

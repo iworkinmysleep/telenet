@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 	res.send("Api is running");
 });
 
-app.use("/api/roomitems", roomRoutes);
+app.use("/api/roomdata", roomRoutes);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
