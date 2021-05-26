@@ -1,12 +1,11 @@
-import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { GlobalContext } from "../context/StateMgr";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import ItemList from "./ItemList";
 
-const AddItem = () => {
+const AddItem = ({match, history}) => {
 	const [roomNumber, setRoomNumber] = useState("");
 	const [speakerNum, setSpeakerNum] = useState(2);
-	const [boardType, setBoardType] = useState("");
+	const [boardType, setBoardType] = useState("Choose...");
 	const [hasAP, setHasAP] = useState(true);
 	const [hasProjector, setHasProjector] = useState(false);
 	const [projectorType, setProjectorType] = useState("");
@@ -16,8 +15,39 @@ const AddItem = () => {
 	const [defectType, setDefectType] = useState("");
 	const [additionalInfo, setAdditionalInfo] = useState("");
 
+	const { addRoomData } = useContext(GlobalContext);
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		const newRoomData = {
+			roomNumber,
+			speakerNum,
+			boardType,
+			hasAP,
+			hasProjector,
+			projectorType,
+			hasAlarm,
+			alarmType,
+			hasDefect,
+			defectType,
+			additionalInfo,
+		};
+
+		addRoomData(newRoomData);
+
+		history.push('/confirm')
+		// setRoomNumber("");
+		// setSpeakerNum(2);
+		// setBoardType("Choose...");
+		// setHasAP(true);
+		// setHasProjector(false);
+		// setAlarmType("");
+		// setProjectorType("");
+		// setHasDefect(false);
+		// setDefectType("");
+		// setAdditionalInfo("");
 	};
 
 	return (
@@ -143,7 +173,6 @@ const AddItem = () => {
 					Add Room
 				</Button>
 			</Form>
-
 		</>
 	);
 };

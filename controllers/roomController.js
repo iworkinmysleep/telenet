@@ -3,15 +3,25 @@ import asyncHandler from "express-async-handler";
 
 // @desc    Get all rooms
 // @route   GET /api/roomdata
-// @access  Public
 const getRoomData = asyncHandler(async (req, res) => {
 	const roomItems = await Room.find({});
 	res.json(roomItems);
 });
 
+// @desc  Get single room
+// @route GET /api/roomdata/:id
+const getRoomById = asyncHandler(async (req, res) => {
+	const room = await Room.findById(req.params.id);
+	if (room) {
+		res.json(room);
+	} else {
+		res.status(404);
+		throw new Error("Room not found");
+	}
+});
+
 // @desc    Add room data
 // @route   POST /api/roomdata
-// @access  Public
 const addRoomData = async (req, res, next) => {
 	try {
 		const {
@@ -19,6 +29,8 @@ const addRoomData = async (req, res, next) => {
 			speakerNum,
 			boardType,
 			hasAP,
+			hasProjector,
+			projectorType,
 			hasAlarm,
 			alarmType,
 			hasDefect,
@@ -51,7 +63,6 @@ const addRoomData = async (req, res, next) => {
 
 // @desc    Delete room data
 // @route   DELETE /api/roomdata/:id
-// @access  Public
 const deleteRoom = async (req, res, next) => {
 	try {
 		const room = await Room.findById(req.params.id);
@@ -77,4 +88,44 @@ const deleteRoom = async (req, res, next) => {
 	}
 };
 
-export { getRoomData, deleteRoom, addRoomData };
+// @desc Update room data
+// @route PUT /api/roomdata/:id
+const editRoomData = asyncHandler(async (req, res) => {
+	const {
+		roomNumber,
+		speakerNum,
+		boardType,
+		hasAP,
+		hasProjector,
+		projectorType,
+		hasAlarm,
+		alarmType,
+		hasDefect,
+		defectType,
+		additionalInfo,
+	} = req.body;
+
+	const room = await Room.findById(req.params.id);
+
+	if (room) {
+		room.roomNumber = roomNumber;
+		room.speakerNum = speakerNum;
+		room.boardType = boardType;
+		room.hasAP = hasAP;
+		room.hasProjector = hasProjector;
+		room.projectorType = projectorType;
+		room.hasAlarm = hasAlarm;
+		room.alarmType = alarmType;
+		room.hasDefect = hasDefect;
+		room.defectType = defectType;
+		room.additionalInfo = additionalInfo;
+
+		const updatedRoom = await room.save();
+		res.json(updatedRoom);
+	} else {
+		res.status(404);
+		throw new Error("Room not found");
+	}
+});
+
+export { getRoomData, getRoomById, deleteRoom, addRoomData, editRoomData };

@@ -9,9 +9,7 @@ const ItemList = () => {
 		
 	}, []);
 
-	const deleteItem = async (id) => {
-		await axios.delete(`http://localhost:8000/roomitems/${id}`);
-	};
+	
 
 	return (
 		<div className="my-5">
