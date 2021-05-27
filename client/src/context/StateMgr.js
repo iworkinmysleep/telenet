@@ -55,11 +55,7 @@ export const GlobalProvider = ({ children }) => {
 			},
 		};
 		try {
-			const res = await axios.post(
-				"/api/roomdata",
-				room,
-				config
-			);
+			const res = await axios.post("/api/roomdata", room, config);
 			dispatch({
 				type: "ADD_ROOM_DATA",
 				payload: res.data,
@@ -72,31 +68,6 @@ export const GlobalProvider = ({ children }) => {
 		}
 	}
 
-	async function editRoomData(room) {
-		const config = {
-			headers: {
-				"Content-type": "application/json",
-			},
-		};
-		try {
-			const { data } = await axios.put(
-				`http://localhost:8000/api/roomdata/${room._id}`,
-				room,
-				config
-			);
-
-			dispatch({
-				type: "EDIT_ROOM_DATA",
-				payload: data,
-			});
-		} catch (err) {
-			dispatch({
-				type: "ROOM_DATA_ERROR",
-				payload: err.response.data.error,
-			});
-		}
-	}
-
 	return (
 		<GlobalContext.Provider
 			value={{
@@ -105,7 +76,6 @@ export const GlobalProvider = ({ children }) => {
 				fetchRoomData,
 				deleteRoomData,
 				addRoomData,
-				editRoomData,
 			}}>
 			{children}
 		</GlobalContext.Provider>

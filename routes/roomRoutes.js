@@ -4,12 +4,11 @@ import {
 	addRoomData,
 	getRoomData,
 	deleteRoom,
-	editRoomData,
 	getRoomById,
 } from "../controllers/roomController.js";
 
 router.route("/").post(addRoomData).get(getRoomData);
 
-router.route("/:id").get(getRoomById).delete(deleteRoom).put(editRoomData);
+router.route("/:id").get(getRoomById).delete(deleteRoom);
 
 export default router;

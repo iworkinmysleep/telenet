@@ -1,13 +1,14 @@
-import { useState, useContext } from "react";
-import { GlobalContext } from "../context/StateMgr";
+import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Confirm from "./Confirm";
 
 const AddItem = () => {
+	const [roomInfo, setRoomInfo] = useState({});
 	const [roomNumber, setRoomNumber] = useState("");
 	const [speakerNum, setSpeakerNum] = useState(2);
 	const [boardType, setBoardType] = useState("Choose...");
 	const [hasAP, setHasAP] = useState(true);
+	const [apType, setAPType] = useState("");
 	const [hasProjector, setHasProjector] = useState(false);
 	const [projectorType, setProjectorType] = useState("");
 	const [hasAlarm, setHasAlarm] = useState(false);
@@ -16,29 +17,25 @@ const AddItem = () => {
 	const [defectType, setDefectType] = useState("");
 	const [additionalInfo, setAdditionalInfo] = useState("");
 
-	const { addRoomData } = useContext(GlobalContext);
 	const [modalShow, setModalShow] = useState(false);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setModalShow(true);
-		if (!modalShow) {
-			const newRoomData = {
-				roomNumber,
-				speakerNum,
-				boardType,
-				hasAP,
-				hasProjector,
-				projectorType,
-				hasAlarm,
-				alarmType,
-				hasDefect,
-				defectType,
-				additionalInfo,
-			};
-
-			addRoomData(newRoomData);
-		}
+		setRoomInfo({
+			roomNumber,
+			speakerNum,
+			boardType,
+			hasAP,
+			apType,
+			hasProjector,
+			projectorType,
+			hasAlarm,
+			alarmType,
+			hasDefect,
+			defectType,
+			additionalInfo,
+		});
 	};
 
 	return (
@@ -77,13 +74,23 @@ const AddItem = () => {
 							<option>No Board</option>
 						</Form.Control>
 					</Form.Group>
-					<Form.Group as={Col} id="hasAP" className="my-3 mx-5" md={4}>
+					<Form.Group as={Col} id="hasAP" className="my-3 mx-5">
 						<Form.Check
 							className="my-4"
 							type="checkbox"
 							label="Access Point?"
 							checked={hasAP}
 							onChange={(e) => setHasAP(e.target.checked)}
+						/>
+					</Form.Group>
+					<Form.Group as={Col} controlId="APType" md={4}>
+						<Form.Label>AP info</Form.Label>
+						<Form.Control
+							type="text"
+							placeholder="Access Point info..."
+							value={apType}
+							onChange={(e) => setAPType(e.target.value)}
+							md={2}
 						/>
 					</Form.Group>
 				</Row>
@@ -163,7 +170,11 @@ const AddItem = () => {
 				<Button variant="primary" type="submit" size="lg" className="my-5">
 					Add Room
 				</Button>
-				<Confirm show={modalShow} onHide={() => setModalShow(false)} />
+				<Confirm
+					show={modalShow}
+					onHide={() => setModalShow(false)}
+					roomInfo={roomInfo}
+				/>
 			</Form>
 		</>
 	);

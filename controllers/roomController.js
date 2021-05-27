@@ -29,6 +29,7 @@ const addRoomData = async (req, res, next) => {
 			speakerNum,
 			boardType,
 			hasAP,
+			apType,
 			hasProjector,
 			projectorType,
 			hasAlarm,
@@ -88,44 +89,4 @@ const deleteRoom = async (req, res, next) => {
 	}
 };
 
-// @desc Update room data
-// @route PUT /api/roomdata/:id
-const editRoomData = asyncHandler(async (req, res) => {
-	const {
-		roomNumber,
-		speakerNum,
-		boardType,
-		hasAP,
-		hasProjector,
-		projectorType,
-		hasAlarm,
-		alarmType,
-		hasDefect,
-		defectType,
-		additionalInfo,
-	} = req.body;
-
-	const room = await Room.findById(req.params.id);
-
-	if (room) {
-		room.roomNumber = roomNumber;
-		room.speakerNum = speakerNum;
-		room.boardType = boardType;
-		room.hasAP = hasAP;
-		room.hasProjector = hasProjector;
-		room.projectorType = projectorType;
-		room.hasAlarm = hasAlarm;
-		room.alarmType = alarmType;
-		room.hasDefect = hasDefect;
-		room.defectType = defectType;
-		room.additionalInfo = additionalInfo;
-
-		const updatedRoom = await room.save();
-		res.json(updatedRoom);
-	} else {
-		res.status(404);
-		throw new Error("Room not found");
-	}
-});
-
-export { getRoomData, getRoomById, deleteRoom, addRoomData, editRoomData };
+export { getRoomData, getRoomById, deleteRoom, addRoomData };

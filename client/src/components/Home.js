@@ -18,8 +18,8 @@ const Home = () => {
 			<p className="text-center">Click on a classroom number to see items</p>
 			<Row>
 				{roomData.map((room) => (
-					<Col key={room._id} md={2} className="text-center">
-						<Room room={room} />
+					<Col md={2} className="text-center">
+						<Room room={room} key={room._id}/>
 					</Col>
 				))}
 			</Row>

@@ -26,6 +26,10 @@ const roomSchema = mongoose.Schema({
 		required: true,
 		default: true,
 	},
+	apType: {
+		type: String,
+		require: true,
+	},
 	hasAlarm: {
 		type: Boolean,
 		required: true,

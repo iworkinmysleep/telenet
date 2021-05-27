@@ -15,11 +15,6 @@ export const AppReducer = (state, action) => {
 				...state,
 				roomData: [...state.roomData, action.payload],
 			};
-		case "EDIT_ROOM_DATA":
-			return {
-				...state,
-				roomData: [...state.roomData, action.payload],
-			};
 		default:
 			return state;
 	}
