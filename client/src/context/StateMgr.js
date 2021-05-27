@@ -27,24 +27,7 @@ export const GlobalProvider = ({ children }) => {
 		} catch (err) {
 			dispatch({
 				type: "ROOM_DATA_ERROR",
-				payload: err.response.data.error,
-			});
-		}
-	}
-
-	async function listRoomDetails(id) {
-		try {
-			const { data } = await axios.get(
-				`http://localhost:8000/api/roomdata/${id}`
-			);
-			dispatch({
-				type: "LIST_ROOM_DETAILS",
-				payload: data,
-			});
-		} catch (err) {
-			dispatch({
-				type: "ROOM_DATA_ERROR",
-				payload: err.response.data.error,
+				payload: err.response,
 			});
 		}
 	}
@@ -60,7 +43,7 @@ export const GlobalProvider = ({ children }) => {
 		} catch (err) {
 			dispatch({
 				type: "ROOM_DATA_ERROR",
-				payload: err.response.data.error,
+				payload: err.response,
 			});
 		}
 	}
@@ -84,7 +67,7 @@ export const GlobalProvider = ({ children }) => {
 		} catch (err) {
 			dispatch({
 				type: "ROOM_DATA_ERROR",
-				payload: err.response.data.error,
+				payload: err.response,
 			});
 		}
 	}
@@ -120,7 +103,6 @@ export const GlobalProvider = ({ children }) => {
 				roomData: state.roomData,
 				error: state.error,
 				fetchRoomData,
-				listRoomDetails,
 				deleteRoomData,
 				addRoomData,
 				editRoomData,

@@ -5,11 +5,6 @@ export const AppReducer = (state, action) => {
 				...state,
 				roomData: action.payload,
 			};
-		case "LIST_ROOM_DETAILS":
-			return {
-				...state,
-				roomData: action.payload,
-			};
 		case "DELETE_ROOM_DATA":
 			return {
 				...state,

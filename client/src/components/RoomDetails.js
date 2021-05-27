@@ -1,19 +1,27 @@
-import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../context/StateMgr";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-const RoomDetails = ({ match }) => {
-	const { roomData, listRoomDetails } = useContext(GlobalContext);
-  
+const RoomDetails = () => {
+	const [details, setDetails] = useState([]);
+	const params = useParams();
 
 	useEffect(() => {
-		listRoomDetails(match.params.id);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [match]);
+		const fetchDetails = async () => {
+			const res = await axios.get(
+				`http://localhost:8000/api/roomdata/${params.id}`
+			);
+			setDetails(res.data);
+		};
+		fetchDetails();
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
-		<div>
-			<h1>{roomData.roomNumber}</h1>
-		</div>
+		<>
+			<h1>{details.roomNumber}</h1>
+		</>
 	);
 };
 
