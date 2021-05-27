@@ -9,7 +9,7 @@ const RoomDetails = () => {
 	useEffect(() => {
 		const fetchDetails = async () => {
 			const res = await axios.get(
-				`http://localhost:8000/api/roomdata/${params.id}`
+				`/api/roomdata/${params.id}`
 			);
 			setDetails(res.data);
 		};

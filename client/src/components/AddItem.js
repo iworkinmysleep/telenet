@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 import { GlobalContext } from "../context/StateMgr";
 import { Form, Button, Row, Col } from "react-bootstrap";
+import Confirm from "./Confirm";
 
-const AddItem = ({match, history}) => {
+const AddItem = () => {
 	const [roomNumber, setRoomNumber] = useState("");
 	const [speakerNum, setSpeakerNum] = useState(2);
 	const [boardType, setBoardType] = useState("Choose...");
@@ -16,38 +17,28 @@ const AddItem = ({match, history}) => {
 	const [additionalInfo, setAdditionalInfo] = useState("");
 
 	const { addRoomData } = useContext(GlobalContext);
-
+	const [modalShow, setModalShow] = useState(false);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setModalShow(true);
+		if (!modalShow) {
+			const newRoomData = {
+				roomNumber,
+				speakerNum,
+				boardType,
+				hasAP,
+				hasProjector,
+				projectorType,
+				hasAlarm,
+				alarmType,
+				hasDefect,
+				defectType,
+				additionalInfo,
+			};
 
-		const newRoomData = {
-			roomNumber,
-			speakerNum,
-			boardType,
-			hasAP,
-			hasProjector,
-			projectorType,
-			hasAlarm,
-			alarmType,
-			hasDefect,
-			defectType,
-			additionalInfo,
-		};
-
-		addRoomData(newRoomData);
-
-		history.push('/confirm')
-		// setRoomNumber("");
-		// setSpeakerNum(2);
-		// setBoardType("Choose...");
-		// setHasAP(true);
-		// setHasProjector(false);
-		// setAlarmType("");
-		// setProjectorType("");
-		// setHasDefect(false);
-		// setDefectType("");
-		// setAdditionalInfo("");
+			addRoomData(newRoomData);
+		}
 	};
 
 	return (
@@ -172,6 +163,7 @@ const AddItem = ({match, history}) => {
 				<Button variant="primary" type="submit" size="lg" className="my-5">
 					Add Room
 				</Button>
+				<Confirm show={modalShow} onHide={() => setModalShow(false)} />
 			</Form>
 		</>
 	);

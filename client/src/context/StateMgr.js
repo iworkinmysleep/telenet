@@ -18,7 +18,7 @@ export const GlobalProvider = ({ children }) => {
 	// Actions
 	async function fetchRoomData() {
 		try {
-			const res = await axios.get("http://localhost:8000/api/roomdata");
+			const res = await axios.get("/api/roomdata");
 
 			dispatch({
 				type: "FETCH_ROOM_DATA",
@@ -34,7 +34,7 @@ export const GlobalProvider = ({ children }) => {
 
 	async function deleteRoomData(id) {
 		try {
-			await axios.delete(`http://localhost:8000/api/roomdata/${id}`);
+			await axios.delete(`/api/roomdata/${id}`);
 
 			dispatch({
 				type: "DELETE_ROOM_DATA",
@@ -56,7 +56,7 @@ export const GlobalProvider = ({ children }) => {
 		};
 		try {
 			const res = await axios.post(
-				"http://localhost:8000/api/roomdata",
+				"/api/roomdata",
 				room,
 				config
 			);
