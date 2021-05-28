@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/StateMgr";
-import { Modal, Button, Row, Col } from "react-bootstrap";
+import { Modal, Button, Row, Col, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 const Confirm = ({ show, onHide, roomInfo }) => {
@@ -12,67 +12,61 @@ const Confirm = ({ show, onHide, roomInfo }) => {
 				onHide={onHide}
 				size="lg"
 				animation={false}
-				centered>
+				className="text-center">
 				<Modal.Header closeButton>
-					<Modal.Title>
-						{roomInfo.roomNumber}
-					</Modal.Title>
+					<Modal.Title>{roomInfo.roomNumber}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<small>Check over data and edit if necessary.</small>
-					<Row>
-						<Col md={4}>
-							<h5 className="text-info">Number of speakers</h5>
-						</Col>
-						<Col>{roomInfo.speakerNum}</Col>
-					</Row>
-					<Row>
-						<Col md={4}>
-							<h5 className="text-info">Board type</h5>
-						</Col>
-						<Col>{roomInfo.boardType}</Col>
-					</Row>
-					{roomInfo.hasAP && (
+					<Container className='my-5'>
 						<Row>
-							<Col md={4}>
-								<h5 className="text-info">Access point info</h5>
+							<Col>
+								<h5 className="text-info">Number of speakers</h5>
+								{roomInfo.speakerNum}
 							</Col>
-							<Col>{roomInfo.apType}</Col>
+							<Col>
+								<h5 className="text-info">Board type</h5>
+								{roomInfo.boardType}
+							</Col>
+							{roomInfo.hasAP && (
+								<Col>
+									<h5 className="text-info">Access point info</h5>
+									{roomInfo.apType}
+								</Col>
+							)}
 						</Row>
-					)}
-					{roomInfo.hasProjector && (
 						<Row>
-							<Col md={4}>
-								<h5 className="text-info">Projector info</h5>
-							</Col>
-							<Col>{roomInfo.projectorType}</Col>
+							{roomInfo.hasProjector && (
+								<Col>
+									<h5 className="text-info">Projector info</h5>
+									{roomInfo.projectorType}
+								</Col>
+							)}
+							{roomInfo.hasAlarm && (
+								<Col>
+									<h5 className="text-info">Fire alarm device info</h5>
+									{roomInfo.alarmType}
+								</Col>
+							)}
+							{roomInfo.hasDefect && (
+								<Col>
+									<h5 className="text-info">Defective items info</h5>
+									{roomInfo.defectType}
+								</Col>
+							)}
 						</Row>
-					)}
-					{roomInfo.hasAlarm && (
-						<Row>
-							<Col md={4}>
-								<h5 className="text-info">Fire alarm device info</h5>
+						<Row className='my-5'>
+							<Col>
+								<h5 className="text-info">Additional info</h5>
+								{roomInfo.additionalInfo}
 							</Col>
-							<Col>{roomInfo.alarmType}</Col>
 						</Row>
-					)}
-					{roomInfo.hasDefect && (
-						<Row>
-							<Col md={4}>
-								<h5 className="text-info">Defective items info</h5>
-							</Col>
-							<Col>{roomInfo.defectType}</Col>
-						</Row>
-					)}
-					<Row>
-						<Col md={4}>
-							<h5 className="text-info">Additional info</h5>
-						</Col>
-						<Col>{roomInfo.additionalInfo}</Col>
-					</Row>
+					</Container>
 				</Modal.Body>
 				<Modal.Footer>
-					<Button variant="info" onClick={onHide}>Edit</Button>
+					<Button variant="info" onClick={onHide}>
+						Edit
+					</Button>
 					<LinkContainer to="/">
 						<Button onClick={() => addRoomData(roomInfo)}>Add Room</Button>
 					</LinkContainer>

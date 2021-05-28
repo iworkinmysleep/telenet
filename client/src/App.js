@@ -14,7 +14,7 @@ function App() {
 		<GlobalProvider>
 			<Router>
 				<Header />
-				<main className="py-3">
+				<main className="py-3 bg-overlay">
 					<Container>
 						<Route path='/' component={Home} exact/>
 						<Route path="/addroom" component={AddItem}/>

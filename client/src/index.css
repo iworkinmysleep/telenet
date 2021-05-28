@@ -1,4 +1,22 @@
 main {
-  min-height: 80vh;
+	min-height: 80vh;
+  color: white;
 }
 
+.bg-overlay {
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+		url("https://images.squarespace-cdn.com/content/v1/5339f18fe4b01ecb085575d5/1485138600239-WPW2O4KTEGYSPRLUV3QP/ke17ZwdGBToddI8pDm48kPld63_RYnHMcuz04gzfy_97gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z4YTzHvnKhyp6Da-NYroOW3ZGjoBKy3azqku80C789l0qCSqOyuz_it4gynG9SI8gedUKb34hJpmvohlo5PcuVpERgirpQ9UdCYzdE1BqHy8g/IMG_2241.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	padding-top: 50px;
+}
+
+a {
+	text-decoration: none;
+}
+
+.dropdown-menu {
+  max-height: 300px;
+  overflow-y: scroll;
+}
