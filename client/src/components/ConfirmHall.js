@@ -3,8 +3,8 @@ import { GlobalContext } from "../context/StateMgr";
 import { Modal, Button, Row, Col, Container } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-const Confirm = ({ show, onHide, roomInfo }) => {
-	const { addRoomData } = useContext(GlobalContext);
+const ConfirmHall = ({ show, onHide, hallInfo }) => {
+	const { addHallData } = useContext(GlobalContext);
 	return (
 		<>
 			<Modal
@@ -14,51 +14,54 @@ const Confirm = ({ show, onHide, roomInfo }) => {
 				animation={false}
 				className="text-center">
 				<Modal.Header closeButton>
-					<Modal.Title>{roomInfo.roomNumber}</Modal.Title>
+					<Modal.Title>{hallInfo.hallSection}</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
 					<small>Check over data and edit if necessary.</small>
-					<Container className='my-5'>
+					<Container className="my-5">
 						<Row>
 							<Col>
-								<h5 className="text-info">Number of speakers</h5>
-								{roomInfo.speakerNum}
+								<h5 className="text-info">Speaker Area</h5>
+								{hallInfo.speakerArea}
 							</Col>
-							<Col>
-								<h5 className="text-info">Board type</h5>
-								{roomInfo.boardType}
-							</Col>
-							{roomInfo.hasAP && (
+
+							{hallInfo.hasRestroom && (
+								<Col>
+									<h5 className="text-info">Restroom info</h5>
+									{hallInfo.restroomType}
+								</Col>
+							)}
+							{hallInfo.hasAP && (
 								<Col>
 									<h5 className="text-info">Access point info</h5>
-									{roomInfo.apType}
+									{hallInfo.apType}
 								</Col>
 							)}
 						</Row>
 						<Row>
-							{roomInfo.hasProjector && (
+							{hallInfo.hasCamera && (
 								<Col>
-									<h5 className="text-info">Projector info</h5>
-									{roomInfo.projectorType}
+									<h5 className="text-info">Camera info</h5>
+									{hallInfo.cameraType}
 								</Col>
 							)}
-							{roomInfo.hasAlarm && (
+							{hallInfo.hasAlarm && (
 								<Col>
 									<h5 className="text-info">Fire alarm device info</h5>
-									{roomInfo.alarmType}
+									{hallInfo.alarmType}
 								</Col>
 							)}
-							{roomInfo.hasDefect && (
+							{hallInfo.hasDefect && (
 								<Col>
 									<h5 className="text-info">Defective items info</h5>
-									{roomInfo.defectType}
+									{hallInfo.defectType}
 								</Col>
 							)}
 						</Row>
-						<Row className='my-5'>
+						<Row className="my-5">
 							<Col>
 								<h5 className="text-info">Additional info</h5>
-								{roomInfo.additionalInfo}
+								{hallInfo.additionalInfo}
 							</Col>
 						</Row>
 					</Container>
@@ -68,7 +71,9 @@ const Confirm = ({ show, onHide, roomInfo }) => {
 						Edit
 					</Button>
 					<LinkContainer to="/">
-						<Button onClick={() => addRoomData(roomInfo)}>Add Room</Button>
+						<Button onClick={() => addHallData(hallInfo)}>
+							Add Hall and Restroom Data
+						</Button>
 					</LinkContainer>
 				</Modal.Footer>
 			</Modal>
@@ -76,4 +81,4 @@ const Confirm = ({ show, onHide, roomInfo }) => {
 	);
 };
 
-export default Confirm;
+export default ConfirmHall;

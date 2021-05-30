@@ -1,30 +1,32 @@
 import mongoose from "mongoose";
 
-const roomSchema = mongoose.Schema({
-	roomNumber: {
+const hallSchema = mongoose.Schema({
+	hallSection: {
 		type: String,
 		trim: true,
-		required: [true, "Please add room number"],
+		required: [true, "Please enter hall section"],
 	},
-	speakerNum: {
-		type: Number,
-		required: true,
-	},
-	boardType: {
+	speakerArea: {
 		type: String,
-		required: [true, "Please enter board type"],
+		required: [true, "Please enter speaker area"],
 	},
-	hasProjector: {
+	hasRestroom: {
 		type: Boolean,
 		required: true,
 	},
-	projectorType: {
+	restroomType: {
+		type: String,
+	},
+	hasCamera: {
+		type: Boolean,
+		required: true,
+	},
+	cameraType: {
 		type: String,
 	},
 	hasAP: {
 		type: Boolean,
 		required: true,
-		default: true,
 	},
 	apType: {
 		type: String,
@@ -33,7 +35,6 @@ const roomSchema = mongoose.Schema({
 	hasAlarm: {
 		type: Boolean,
 		required: true,
-		default: false,
 	},
 	alarmType: {
 		type: String,
@@ -41,7 +42,6 @@ const roomSchema = mongoose.Schema({
 	hasDefect: {
 		type: Boolean,
 		required: true,
-		default: false,
 	},
 	defectType: {
 		type: String,
@@ -51,6 +51,6 @@ const roomSchema = mongoose.Schema({
 	},
 });
 
-const Room = mongoose.model("Room", roomSchema);
+const Hall = mongoose.model("Hall", hallSchema);
 
-export default Room;
+export default Hall;

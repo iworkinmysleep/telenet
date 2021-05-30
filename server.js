@@ -8,6 +8,7 @@ import { notFound, errorHandler } from "./middleware/errorWare.js";
 import connectDB from "./config/db.js";
 
 import roomRoutes from "./routes/roomRoutes.js";
+import hallRoutes from "./routes/hallRoutes.js";
 
 
 dotenv.config();
@@ -29,6 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/roomdata", roomRoutes);
+app.use("/api/halldata", hallRoutes);
 
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));

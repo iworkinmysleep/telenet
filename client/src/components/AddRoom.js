@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Confirm from "./Confirm";
+import ConfirmRoom from "./ConfirmRoom";
 
-const AddItem = () => {
+const AddRoom = () => {
 	const [roomInfo, setRoomInfo] = useState({});
 	const [roomNumber, setRoomNumber] = useState("");
 	const [speakerNum, setSpeakerNum] = useState(2);
@@ -175,7 +175,7 @@ const AddItem = () => {
 					<Button variant="primary" type="submit" size="lg" className="my-5">
 						Add Room
 					</Button>
-					<Confirm
+					<ConfirmRoom
 						show={modalShow}
 						onHide={() => setModalShow(false)}
 						roomInfo={roomInfo}
@@ -186,4 +186,4 @@ const AddItem = () => {
 	);
 };
 
-export default AddItem;
+export default AddRoom;

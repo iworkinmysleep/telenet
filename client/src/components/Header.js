@@ -10,9 +10,14 @@ const Header = () => {
 					<LinkContainer to="/">
 						<Navbar.Brand>Telenet Systems</Navbar.Brand>
 					</LinkContainer>
-					<Nav className='ml-auto'>
-						<LinkContainer to='/addroom'>
-							<Nav.Link>ROOM DATA FORM</Nav.Link>
+					<Nav className="ml-auto">
+						<LinkContainer to="/addroom">
+							<Nav.Link>ROOM FORM</Nav.Link>
+						</LinkContainer>
+						<LinkContainer to="/addhall">
+							<Nav.Link>
+								HALL and <i className="fas fa-restroom"></i> FORM
+							</Nav.Link>
 						</LinkContainer>
 					</Nav>
 				</Container>

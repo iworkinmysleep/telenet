@@ -15,6 +15,21 @@ export const AppReducer = (state, action) => {
 				...state,
 				roomData: [...state.roomData, action.payload],
 			};
+		case "FETCH_HALL_DATA":
+			return {
+				...state,
+				hallData: action.payload,
+			};
+		case "DELETE_HALL_DATA":
+			return {
+				...state,
+				hallData: state.hallData.filter((hall) => hall._id !== action.payload),
+			};
+		case "ADD_HALL_DATA":
+			return {
+				...state,
+				hallData: [...state.hallData, action.payload],
+			};
 		default:
 			return state;
 	}
